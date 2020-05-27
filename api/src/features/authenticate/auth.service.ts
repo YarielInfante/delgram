@@ -1,13 +1,9 @@
 import { Injectable, HttpException, HttpStatus, Logger } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { UserLoginDTO } from 'src/dto/user-login.dto';
 import { UsersService } from '../users/users.service';
 import { compare, hash, genSalt } from 'bcrypt';
-import { Payload } from '../../dto/payload.interface';
-import { log } from 'util';
-import { UserRegisterDTO } from 'src/dto/user-register.dto';
-import { UserDto } from 'src/dto/user.dto';
 import { User } from '../users/user.entity';
+import { UserRegisterDTO, UserDto, Payload, UserLoginDTO } from '@delgram/core';
 
 export interface TokenPayload {
   token: string;

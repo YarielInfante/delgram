@@ -43,3 +43,4 @@ npm-debug.*
 *.orig.*
 web-build/
 web-report/
+core

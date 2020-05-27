@@ -22,13 +22,14 @@
     "migration:create": "typeorm migration:create -n "
   },
   "dependencies": {
-    "@nestjs/common": "^7.0.0",
+    "@nestjs/common": "^7.1.0",
     "@nestjs/core": "^7.0.0",
     "@nestjs/jwt": "6.1.1",
     "@nestjs/platform-express": "^7.0.0",
     "@nestjs/typeorm": "^7.1.0",
     "@types/bcrypt": "^3.0.0",
     "bcrypt": "^4.0.1",
+    "@delgram/core": "https://github.com/YarielInfante/delgram-core",
     "dotenv": "8.1.0",
     "pg": "^8.2.1",
     "postgres": "^1.0.2",
