@@ -10,9 +10,15 @@
     "@types/node": "^12.12.42",
     "@types/react": "^16.9.35",
     "@types/react-dom": "^16.9.8",
+    "@types/react-router-dom": "^5.1.5",
+    "pure-react-carousel": "^1.27.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
+    "semantic-ui-carousel-react": "^1.1.1",
+    "semantic-ui-css": "^2.4.1",
+    "semantic-ui-react": "^0.88.2",
     "typescript": "^3.7.5"
   },
   "scripts": {
