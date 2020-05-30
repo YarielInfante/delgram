@@ -8,7 +8,6 @@ import {
   Icon,
   Image,
   Grid,
-  Label,
 } from "semantic-ui-react";
 
 import { Link } from "react-router-dom";
@@ -31,10 +30,16 @@ const LoginForm = () => {
             <Divider horizontal>Or</Divider>
             <Segment basic>
               <Icon name="facebook"></Icon>
-              <a href="#">Log in with Facebook</a>
+              <Link to="#">Log in with Facebook</Link>
             </Segment>
+
+            <Header as="h5" color="red">
+              Sorry, your password was incorrect. Please double-check your
+              password.
+            </Header>
+
             <Segment basic>
-              <a>Forgot password?</a>
+              <Link to="#">Forgot password?</Link>
             </Segment>
           </Segment>
         </Form>

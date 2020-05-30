@@ -3,12 +3,13 @@ import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '../users/users.service';
 import { compare, hash, genSalt } from 'bcrypt';
 import { User } from '../users/user.entity';
-import { UserRegisterDTO, UserDto, Payload, UserLoginDTO } from '@delgram/core';
-
-export interface TokenPayload {
-  token: string;
-  user: UserDto;
-}
+import {
+  UserRegisterDTO,
+  UserDto,
+  Payload,
+  UserLoginDTO,
+  TokenPayload,
+} from '@delgram/core';
 
 @Injectable()
 export class AuthService {

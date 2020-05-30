@@ -5,8 +5,8 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import "semantic-ui-css/semantic.min.css";
 import { Router } from "react-router-dom";
-import ScrollToTop from "./app/layout/ScrollToTop";
 import { createBrowserHistory } from "history";
+import "../src/app/layout/styles.css";
 
 export const history = createBrowserHistory();
 

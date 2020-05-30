@@ -1,6 +1,6 @@
 import { Body, Controller, Logger, Post } from '@nestjs/common';
-import { AuthService, TokenPayload } from './auth.service';
-import { UserRegisterDTO, UserLoginDTO } from '@delgram/core';
+import { AuthService } from './auth.service';
+import { UserRegisterDTO, UserLoginDTO, TokenPayload } from '@delgram/core';
 
 @Controller('api')
 export class UserJWTController {
