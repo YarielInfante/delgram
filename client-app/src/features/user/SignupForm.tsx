@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import {
   Grid,
   Button,
@@ -8,7 +8,7 @@ import {
   Divider,
   Image,
   Container,
-  InputOnChangeData,
+  Message,
 } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import {
@@ -18,8 +18,8 @@ import {
   createValidator,
   matchesPattern,
 } from "revalidate";
-import { UserRegisterDTO } from "@delgram/core";
-import agent from "../../app/api/agent";
+import { RootStoreContext } from "../../app/stores/RootStore";
+import { observer } from "mobx-react-lite";
 
 interface IconValue {
   color?: string;
@@ -27,47 +27,18 @@ interface IconValue {
 }
 const SigupForm = () => {
   const maxWidth = 350;
-  let user: Partial<UserRegisterDTO> = new UserRegisterDTO();
 
-  const [userRegister, setUserRegister] = useState(user);
-  const [disableSummit, setDisableSummit] = useState(true);
-  const [loading, setLoading] = useState(false);
-  const [fieldTouched, setFieldTouched] = useState({
-    email: false,
-    firstName: false,
-    username: false,
-    password: false,
-  });
-  const [fieldValid, setFieldValid] = useState({
-    email: {},
-    firstName: {},
-    username: {},
-    password: {},
-  });
-
-  const handleChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-    data: InputOnChangeData
-  ) => {
-    setUserRegister({ ...userRegister, [event.target.name]: data.value });
-    setFieldTouched({ ...fieldTouched, [event.target.name]: true });
-    setFieldValid({
-      ...fieldValid,
-      [event.target.name]: validateForm(event.target.name, data.value),
-    });
-
-    setDisableSummit(
-      Object.values(fieldValid as IconValue).filter(
-        (v: IconValue) => v.name === "check"
-      ).length !== Object.keys(fieldValid).length
-    );
-
-    console.log(
-      Object.values(fieldValid as IconValue).filter(
-        (v: IconValue) => v.name === "check"
-      ).length === Object.keys(fieldValid).length
-    );
-  };
+  const rootStore = useContext(RootStoreContext);
+  const {
+    userRegister,
+    disableSummit,
+    loading,
+    fieldTouched,
+    fieldValid,
+    errorMessage,
+    handleChange,
+    summitForm,
+  } = rootStore.userStore;
 
   const validateForm = (name: string, value: string): IconValue => {
     if (validate({ [name]: value })?.[name]) {
@@ -102,16 +73,6 @@ const SigupForm = () => {
     )("password"),
   });
 
-  const summitForm = () => {
-    setLoading(true);
-    setDisableSummit(true);
-    agent.UserService.register(userRegister as UserRegisterDTO).then(() => {
-      setLoading(false);
-      setDisableSummit(false);
-      setUserRegister(new UserRegisterDTO());
-    });
-  };
-
   return (
     <Container>
       <Grid
@@ -135,12 +96,17 @@ const SigupForm = () => {
                       content="Signup with Facebook"
                     />
                   </Segment>
+
+                  <Header as="h4" color="red" content={errorMessage} />
+
                   <Divider horizontal>Or</Divider>
 
                   <Form.Input
                     placeholder="Mobile number or email"
                     name="email"
-                    onChange={handleChange}
+                    onChange={(e, data) =>
+                      handleChange(e.target.name, data.value, validateForm)
+                    }
                     value={userRegister.email}
                     icon={fieldTouched.email ? fieldValid.email : {}}
                   />
@@ -148,13 +114,17 @@ const SigupForm = () => {
                   <Form.Input
                     value={userRegister.firstName}
                     placeholder="Full Name"
-                    onChange={handleChange}
+                    onChange={(e, data) =>
+                      handleChange(e.target.name, data.value, validateForm)
+                    }
                     name="firstName"
                     icon={fieldTouched.firstName ? fieldValid.firstName : {}}
                   ></Form.Input>
                   <Form.Input
                     name="username"
-                    onChange={handleChange}
+                    onChange={(e, data) =>
+                      handleChange(e.target.name, data.value, validateForm)
+                    }
                     value={userRegister.username}
                     placeholder="Username"
                     icon={fieldTouched.username ? fieldValid.username : {}}
@@ -162,7 +132,9 @@ const SigupForm = () => {
 
                   <Form.Input
                     name="password"
-                    onChange={handleChange}
+                    onChange={(e, data) =>
+                      handleChange(e.target.name, data.value, validateForm)
+                    }
                     value={userRegister.password}
                     placeholder="Password"
                     type="password"
@@ -203,4 +175,4 @@ const SigupForm = () => {
   );
 };
 
-export default SigupForm;
+export default observer(SigupForm);
