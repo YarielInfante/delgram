@@ -7,6 +7,7 @@ import "semantic-ui-css/semantic.min.css";
 import { Router } from "react-router-dom";
 import { createBrowserHistory } from "history";
 import "../src/app/layout/styles.css";
+import "mobx-react-lite/batchingForReactDom";
 
 export const history = createBrowserHistory();
 

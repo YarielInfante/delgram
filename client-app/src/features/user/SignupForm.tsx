@@ -8,7 +8,6 @@ import {
   Divider,
   Image,
   Container,
-  Message,
 } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import {

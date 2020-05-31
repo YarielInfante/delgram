@@ -2,6 +2,7 @@ import { RootStore } from "./RootStore";
 import { observable, action, runInAction } from "mobx";
 import { UserRegisterDTO } from "@delgram/core";
 import agent from "../api/agent";
+import { history } from "../..";
 
 interface IconValue {
   color?: string;
@@ -37,7 +38,6 @@ export class UserStore {
     value: string,
     validateForm: (name: string, value: string) => IconValue
   ) => {
-    console.log(name, value);
     this.userRegister = { ...this.userRegister, [name]: value };
     this.fieldTouched = { ...this.fieldTouched, [name]: true };
     this.fieldValid = {
@@ -56,6 +56,7 @@ export class UserStore {
     this.disableSummit = true;
     try {
       await agent.UserService.register(this.userRegister as UserRegisterDTO);
+      history.push("/feeds");
     } catch (error) {
       runInAction(() => {
         this.errorMessage = error.response.data.message;
