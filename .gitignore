@@ -44,3 +44,4 @@ npm-debug.*
 web-build/
 web-report/
 core
+*.png
